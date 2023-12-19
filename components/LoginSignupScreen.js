@@ -7,12 +7,22 @@ const LoginSignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Implement login logic
+  const handleLogin = async () => {
+    try {
+      const user = await signIn(email, password);
+      // Navigate to user's dashboard or home screen
+    } catch (error) {
+      Alert.alert('Login Failed', error.message);
+    }
   };
 
-  const handleSignup = () => {
-    // Implement signup logic
+  const handleSignup = async () => {
+    try {
+      const newUser = await signUp(email, password);
+      // Handle post-signup logic, like navigating to a welcome screen
+    } catch (error) {
+      Alert.alert('Signup Failed', error.message);
+    }
   };
 
   return (
