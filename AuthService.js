@@ -1,25 +1,24 @@
 // AuthService.js
-import { auth } from './firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore'; // Import setDoc and doc
+import { auth, db } from './firebaseConfig'; // Ensure you import db from firebaseConfig
 
-export const signUp = async (email, password) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // You can add additional logic here if needed, like updating the user profile or database
-      return userCredential.user;
-    } catch (error) {
-      console.error(error);
-      throw error; // You can handle the error differently if needed
-    }
-  };
+export const signUp = async (email, password, name, phone, userType) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-  export const signIn = async (email, password) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // After successful login, you might want to navigate to a different screen
-      return userCredential.user;
-    } catch (error) {
-      console.error(error);
-      throw error; // You can handle the error differently if needed
-    }
-  };
+    // Save additional user data to Firestore
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, {
+      name,
+      phone,
+      userType
+    });
+
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

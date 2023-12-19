@@ -1,9 +1,9 @@
-// components/LoginSignupScreen.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, Alert } from 'react-native';
 import AuthButton from './AuthButton';
+import { signIn,signUp } from '../AuthService'; // Import signIn from AuthService
 
-const LoginSignupScreen = () => {
+const LoginSignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,18 +11,15 @@ const LoginSignupScreen = () => {
     try {
       const user = await signIn(email, password);
       // Navigate to user's dashboard or home screen
+      // Example: navigation.navigate('UserDashboard');
     } catch (error) {
       Alert.alert('Login Failed', error.message);
     }
   };
 
-  const handleSignup = async () => {
-    try {
-      const newUser = await signUp(email, password);
-      // Handle post-signup logic, like navigating to a welcome screen
-    } catch (error) {
-      Alert.alert('Signup Failed', error.message);
-    }
+  const handleSignup = () => {
+    // Navigate to SignupScreen for user registration
+    navigation.navigate('SignupScreen');
   };
 
   return (
@@ -51,6 +48,9 @@ const LoginSignupScreen = () => {
     </View>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
   container: {
