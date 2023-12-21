@@ -5,20 +5,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginSignupScreen from './components/LoginSignupScreen';
 import SignupScreen from './components/SignupScreen';
 import CoachDashboard from './components/CoachDashboard';
+import SwimmerDashboard from './components/SwimmerDashboard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-// Define your stack and tab navigators
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
-// Define the Coach's Tab Navigator
 function CoachTabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen 
         name="Dashboard" 
-        component={CoachDashboard} 
+        component={CoachDashboard}
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({ color, size }) => (
@@ -26,22 +24,15 @@ function CoachTabNavigator() {
           ),
         }}
       />
-      {/* Define other tabs for the Coach's dashboard here */}
+      {/* Add other tabs for the Coach's dashboard here */}
     </Tab.Navigator>
   );
 }
 
-// Define the Main Stack Navigator
 function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="CoachDashboard">
-        <Stack.Screen 
-          name="CoachDashboard" 
-          component={CoachTabNavigator} 
-          options={{ headerShown: false }} // Hide the header
-        />
-        {/* Other screens can still be part of the stack but won't be the first screen */}
         <Stack.Screen 
           name="LoginSignupScreen" 
           component={LoginSignupScreen} 
@@ -52,12 +43,24 @@ function App() {
           component={SignupScreen} 
           options={{ title: 'Sign Up' }} 
         />
+        {/* Consider conditionally rendering these screens based on user role */}
+        <Stack.Screen 
+          name="CoachDashboard" 
+          component={CoachTabNavigator} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="SwimmerDashboard" 
+          component={SwimmerDashboard} 
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
+
 
 
 

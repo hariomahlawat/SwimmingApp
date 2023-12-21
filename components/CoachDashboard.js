@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -57,14 +57,14 @@ const CoachDashboard = ({ navigation }) => {
 
         <TouchableOpacity 
           style={styles.bottomNavItem} 
-          onPress={() => {/* navigation logic */}}>
+          onPress={() => navigation.navigate('LoginSignupScreen')}>
           <Icon name="home" style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavLabel}>Home</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
           style={styles.bottomNavItem} 
-          onPress={() => navigation.navigate('LoginSignupScreen')}>
+          onPress={() => navigation.navigate('SwimmerDashboard')}>
           <Icon name="chart-line" style={styles.bottomNavIcon} />
           <Text style={styles.bottomNavLabel}>Productivity</Text>
         </TouchableOpacity>
@@ -131,15 +131,12 @@ bottomNavContainer: {
   bottomNavItem: {
     alignItems: 'center',
   },
-  bottomNavIcon: {
-    width: 24,
-    height: 24,
-    marginBottom: 4,
-  },
-  bottomNavIcon: {
-    fontSize: 24,
-    color: 'gray', // You can set your preferred color
-  },
+  // Styles for bottom navigation bar
+bottomNavIcon: {
+  fontSize: 24,
+  marginBottom: 4,
+  color: 'gray', // You can set your preferred color
+},
   bottomNavLabel: {
     fontSize: 12,
   },
