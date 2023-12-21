@@ -25,7 +25,7 @@ const LoginSignupScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/adaptive-icon.png')} // Update with your image path
+        source={require('../assets/ConnectNow-logos_transparent.png')} // Update with your image path
         style={styles.image}
       />
       <Text style={styles.tagline}>Dive into Success with ConnectNow</Text>
