@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, SafeAreaView, } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
 
 const SwimmerDashboard = ({ navigation }) => {
   const competitions = [
@@ -8,6 +11,41 @@ const SwimmerDashboard = ({ navigation }) => {
     { id: '2', name: 'Competition 2', date: '20 Mar 2024' },
     // ... more competitions ...
   ];
+
+  // Dummy data for the chart
+  const data = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+        strokeWidth: 2,
+      },
+    ],
+  };
+
+  const chartConfig = {
+    backgroundGradientFrom: '#fff',
+    backgroundGradientTo: '#fff',
+    color: (opacity = 1) => `rgba(0, 95, 115, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+  };
+  const ChartWithTitle = ({ title, data, chartConfig }) => (
+    <View style={styles.chartContainer}>
+      <Text style={styles.chartTitle}>{title}</Text>
+      <View style={styles.yAxisLabelContainer}>
+        <Text style={styles.yAxisLabel}></Text>
+        <LineChart
+          data={data}
+          width={320} // You may want to use the full width of the device
+          height={220}
+          chartConfig={chartConfig}
+          // Additional props for the Y-axis can be added here if needed
+        />
+      </View>
+    </View>
+  );
+
+
 
   const renderCompetitionItem = ({ item }) => (
     <View style={styles.competitionItem}>
@@ -17,13 +55,20 @@ const SwimmerDashboard = ({ navigation }) => {
   );
 
   const renderHeader = () => (
+    
+
     <View>
-      <View style={styles.profileSection}>
-        <Text style={styles.sectionTitle}>Personal Stats</Text>
-        {/* Add graphical representations or stat cards here */}
-      </View>
-      <Text style={styles.sectionTitle}>Upcoming Competitions</Text>
+    <View style={styles.profileSection}>
+      <Text style={styles.sectionTitle}>Personal Stats</Text>
+      <ChartWithTitle
+        title="Average Lap Timings (seconds) Over Time"
+        data={data}
+        chartConfig={chartConfig}
+      />
+      {/* Include other stats representations here */}
     </View>
+    <Text style={styles.sectionTitle}>Upcoming Competitions</Text>
+  </View>
   );
 
   const renderFooter = () => (
